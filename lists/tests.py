@@ -1,4 +1,4 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.urls import resolve
 from django.template.loader import render_to_string
 from lists.views import home_page
@@ -21,5 +21,16 @@ def test_home_page_returns_correct_html():
     assert response.content.startswith(b'<html>')
     assert b'<title>To-Do lists</title>' in response.content
     assert response.content.endswith(b'</html>')
-    expected_html = render_to_string('home.html')
+    expected_html = render_to_string(
+        'home.html',
+        {'new_item_text': 'A new list item'}
+        )
     assert response.content.decode() == expected_html
+
+
+def test_home_page_can_save_a_POST_request():
+    request = HttpRequest()
+    request.method = 'POST'
+    request.POST['item_text'] = 'A new list item'
+    response: HttpResponse = home_page(request)
+    assert 'A new list item' in response.content.decode()

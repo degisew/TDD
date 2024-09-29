@@ -22,6 +22,20 @@ def test_find_app_title():
     # When she hits enter, the page updates, and now the page lists
     # "1: Buy peacock feathers" as an item in a to-do list table
     input_box.send_keys(keys.Keys.ENTER)
+    # import time
+    # time.sleep(10)
     table = browser.find_element(by.By.ID, 'id_list_table')
     rows = table.find_elements(by.By.TAG_NAME, 'tr')
-    assert any(row.text == '1: Buy peacock feathers' for row in rows)
+    assert '1: Buy peacock feathers' in [row.text for row in rows]
+
+    # There is still a text box inviting her to add another item. She
+    # enters "Use peacock feathers to make a fly" (Edith is very
+    # methodical)
+    input_box = browser.find_element(by.By.ID, 'id_new_item')
+    input_box.send_keys('Use peacock feathers to make a fly')
+    input_box.send_keys(keys.Keys.ENTER)
+    # The page updates again, and now shows both items on her list
+    table = browser.find_element(by.By.ID, 'id_list_table')
+    rows = table.find_elements(by.By.TAG_NAME, 'tr')
+    assert '2: Use peacock feathers to make a fly' in [row.text for row in rows]
+    assert '1: Buy peacock feathers' in [row.text for row in rows]
