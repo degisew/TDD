@@ -10,7 +10,7 @@ def test_find_app_title() -> None:
     browser.get('http://127.0.0.1:8000')
     assert 'To-Do' in browser.title
     header_text = browser.find_element(by.By.TAG_NAME, "title").get_attribute("textContent")
-    
+
     assert "To-Do" in header_text
 
 
@@ -28,7 +28,7 @@ def test_can_start_a_list_and_retrieve_it_later() -> None:
     assert input_box.get_attribute('placeholder') == 'Enter a to-do item'
     # She types "Buy peacock feathers" into a text box (Edith's hobby
     # is tying fly-fishing lures)
-    input_box.send_keys('1: Buy peacock feathers')
+    input_box.send_keys('Buy peacock feathers')
 
     # When she hits enter, the page updates, and now the page lists
     # "Buy peacock feathers" as an item in a to-do list table
@@ -46,3 +46,6 @@ def test_can_start_a_list_and_retrieve_it_later() -> None:
     # The page updates again, and now shows both items on her list
 
     check_for_row_in_list_table('Use peacock feathers to make a fly')
+
+
+# q
