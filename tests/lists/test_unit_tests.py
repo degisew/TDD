@@ -1,7 +1,6 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.urls import resolve
 from django.template.loader import render_to_string
-from lists.models import Item
 from lists.views import home_page
 
 
