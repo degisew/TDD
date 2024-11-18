@@ -20,4 +20,4 @@ def test_post_method_create_object(client) -> None:
     # Then
     assert response.status_code == 201
 
-    assert  instance_count == 1
+    assert instance_count == 1
