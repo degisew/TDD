@@ -1,2 +1,2 @@
 # TDD
-A repo for practicing TDD with Python and Django
+A repo for practicing TDD with Python and Django, and pytest
