@@ -8,7 +8,13 @@ def test_post_method_create_object(client) -> None:
 
     # Given
     url = "/api/movies/"
-    payload = baker.prepare(Movie)
+    # payload = baker.prepare(Movie)
+    payload = {
+            "title": "The Big Lebowski",
+            "genre": "comedy",
+            "year": "1998",
+        }
+    print(payload)
 
     instance_count = Movie.objects.count()
 
@@ -20,4 +26,4 @@ def test_post_method_create_object(client) -> None:
     # Then
     assert response.status_code == 201
 
-    assert instance_count == 1
+    assert Movie.objects.count() == 1

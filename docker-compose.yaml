@@ -13,11 +13,11 @@ services:
     movies-db:
         image: postgres:16
         volumes:
-        - postgres_data:/var/lib/postgresql/data/
+            - postgres_data:/var/lib/postgresql/data/
         environment:
-        - POSTGRES_USER=movies
-        - POSTGRES_PASSWORD=movies
-        - POSTGRES_DB=movies_dev
+            - POSTGRES_USER=movies
+            - POSTGRES_PASSWORD=movies
+            - POSTGRES_DB=movies_dev
 
 volumes:
   postgres_data:
