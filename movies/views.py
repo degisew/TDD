@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework.generics import get_object_or_404
+from movies.models import Movie
 from movies.serializers import MovieSerializer
 from rest_framework.status import (
     HTTP_201_CREATED,
@@ -14,10 +16,24 @@ class MovieList(APIView):
     Returns:
         Response object
     """
+    def get(self, request: Request):
+        movies = Movie.objects.all()
+        serializer = MovieSerializer(movies, many=True)
+
+        return Response(serializer.data)
+
     def post(self, request: Request, format=None):
         serializer = MovieSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)   
+
+
+class MovieDetail(APIView):
+    def get(self, request: Request, pk: int) -> Response:
+        movie: Movie = get_object_or_404(Movie, pk=pk)
+        serializer = MovieSerializer(movie)
+
+        return Response(serializer.data)
