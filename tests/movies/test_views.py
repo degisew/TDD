@@ -1,24 +1,22 @@
+from django.test import Client
 import pytest
 from model_bakery import baker
 from movies.models import Movie
-
+from movies.serializers import MovieSerializer
 
 @pytest.mark.django_db
-def test_post_method_create_object(client) -> None:
+def test_post_method_create_object(client: Client) -> None:
 
     # Given
     url = "/api/movies/"
-    # payload = baker.prepare(Movie)
-    payload = {
-            "title": "The Big Lebowski",
-            "genre": "comedy",
-            "year": "1998",
-        }
-    print(payload)
 
-    instance_count = Movie.objects.count()
+    # prefer prepare over make to avoid auto saving
+    movie_instance: Movie = baker.prepare(Movie)
 
-    assert instance_count == 0
+    # Deserialize to get the JSON version
+    payload = MovieSerializer(movie_instance).data
+
+    assert Movie.objects.count() == 0
 
     # When
     response = client.post(url, payload, content_type="application/json")
