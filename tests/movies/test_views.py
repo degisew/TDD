@@ -1,6 +1,7 @@
 import pytest
 from django.test import Client
 from model_bakery import baker
+
 from movies.models import Movie
 from movies.serializers import MovieSerializer
 
@@ -33,7 +34,7 @@ def test_post_method_raises_bad_request_on_invalid_payload(client) -> None:
 
     url = "/api/movies/"
     payload = {}
-    content_type="application/json"
+    content_type = "application/json"
 
     assert Movie.objects.count() == 0
 
@@ -47,12 +48,9 @@ def test_post_method_raises_bad_request_on_invalid_payload(client) -> None:
 @pytest.mark.django_db
 def test_post_method_for_invalid_payload_keys(client) -> None:
     url = "/api/movies/"
-    payload = {
-            "title": "The Big Lebowski",
-            "genre": "comedy"
-        }
+    payload = {"title": "The Big Lebowski", "genre": "comedy"}
 
-    content_type="application/json"
+    content_type = "application/json"
 
     assert Movie.objects.count() == 0
 
@@ -61,7 +59,6 @@ def test_post_method_for_invalid_payload_keys(client) -> None:
     assert response.status_code == 400
 
     assert Movie.objects.count() == 0
-
 
 
 @pytest.mark.django_db

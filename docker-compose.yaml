@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: compose/dev/Dockerfile
-        
+
         env_file:
             - .envs/dev/.env
 
@@ -22,10 +22,6 @@ services:
 
         env_file:
             - .envs/dev/.env
-        # environment:
-        #     - "POSTGRES_HOST_AUTH_METHOD=trust"
-        #     - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-        #     - DATABASE_URL=${DATABASE_URL}
 
 volumes:
   postgres_data:

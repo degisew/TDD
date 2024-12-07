@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 from environ import Env
 
 env = Env()
-env.read_env()
+env.read_env(env_file=".envs/dev/.env")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -84,16 +84,12 @@ WSGI_APPLICATION = "drf_project.wsgi.application"
 # * Disabling browsable API in production
 if not DEBUG:
     REST_FRAMEWORK = {
-        "DEFAULT_RENDERER_CLASSES": (
-            "rest_framework.renderers.JSONRenderer",
-        )
+        "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",)
     }
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": env.db_url("DATABASE_URL")
-}
+DATABASES = {"default": env.db_url("DATABASE_URL")}
 
 
 # Password validation

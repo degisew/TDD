@@ -1,6 +1,7 @@
-from django.forms import ValidationError
 import pytest
+from django.forms import ValidationError
 from model_bakery import baker
+
 from movies.models import Movie
 
 
